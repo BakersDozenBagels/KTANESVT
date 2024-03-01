@@ -19,6 +19,6 @@ MonoBehaviour:
     your timer with this needy! You wouldn't want to lose too much time to it.\n\nFind
     the manual at https://gdane.net/manual/Supraventricular%20Tachycardia\n\r\nmod
     id: SVT\r\nsource: https://github.com/BakersDozenBagels/KTANESVT"
-  version: 1.0
+  version: 1.1
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 4a42eb2adaf4c064caf228b398d5f4e1, type: 3}

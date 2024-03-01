@@ -197,7 +197,7 @@ public class SVTScript : MonoBehaviour
 
     private float Multiplier { get; set; }
     private Coroutine _bleed;
-    private float _lastChangeTime, _cumulativeTimeLoss;
+    private float _startTime, _lastChangeTime, _cumulativeTimeLoss;
 
     private static event Action BeforeTimerSpeedChanged = () => { };
 
@@ -250,7 +250,7 @@ public class SVTScript : MonoBehaviour
     const float AccelerationRate = 1f / 120f; // Units: change in timer multiplier per second
     private IEnumerator Bleed()
     {
-        float startTime = _lastChangeTime = Time.time;
+        float startTime = _startTime = _lastChangeTime = Time.time;
         _cumulativeTimeLoss = 0f;
         var n = GetComponent<KMNeedyModule>();
         while (true)
@@ -275,8 +275,9 @@ public class SVTScript : MonoBehaviour
 
     private float Calculus()
     {
-        float x = Time.time - _lastChangeTime;
+        float x = Time.time - _startTime;
+        float y = _lastChangeTime - _startTime;
         float baseRate = (float)s_timerRateModifier.GetValue(transform.root.GetComponentInChildren(s_timerType));
-        return baseRate * x * x * AccelerationRate / 2f;
+        return Mathf.Abs(baseRate * (x * x - y * y) * AccelerationRate / 2f);
     }
 }
